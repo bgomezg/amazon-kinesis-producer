@@ -80,11 +80,11 @@ public class SampleProducer {
     /**
      * Put records for this number of seconds before exiting.
      */
-    private static final int SECONDS_TO_RUN = 5;
+    private static final int SECONDS_TO_RUN = 600;
     
     /**
      * Put this number of records per second.
-     * 
+     * 	
      * Because multiple logical records are combined into each Kinesis record,
      * even a single shard can handle several thousand records per second, even
      * though there is a limit of 1000 Kinesis records per shard per second.
@@ -95,17 +95,17 @@ public class SampleProducer {
      * 
      * @see {@link KinesisProducerConfiguration#setRecordTtl(long)}
      */
-    private static final int RECORDS_PER_SECOND = 2000;
+    private static final int RECORDS_PER_SECOND = 1;
     
     /**
      * Change this to your stream name.
      */
-    public static final String STREAM_NAME = "test";
+    public static final String STREAM_NAME = "BeMadTest";
     
     /**
      * Change this to the region you are using.
      */
-    public static final String REGION = "us-west-1";
+    public static final String REGION = "eu-west-1";
 
     /**
      * Here'll walk through some of the config options and create an instance of
@@ -210,7 +210,9 @@ public class SampleProducer {
         final Runnable putOneRecord = new Runnable() {
             @Override
             public void run() {
-                ByteBuffer data = Utils.generateData(sequenceNumber.get(), DATA_SIZE);
+            	//BORJA
+            	ByteBuffer data = Utils.generateDataBeMad();
+           		//ByteBuffer data = Utils.generateData(sequenceNumber.get(), DATA_SIZE);
                 // TIMESTAMP is our partition key
                 ListenableFuture<UserRecordResult> f =
                         producer.addUserRecord(STREAM_NAME, TIMESTAMP, Utils.randomExplicitHashKey(), data);
